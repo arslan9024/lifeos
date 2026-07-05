@@ -14,6 +14,9 @@ const app = express();
 const { port, clientOrigins, jsonBodyLimit, shutdownTimeoutMs, nodeEnv, rateLimitWindowMs, rateLimitMax, trustProxy, compressionEnabled } = config;
 const apiRateLimiter = createApiRateLimiter({ windowMs: rateLimitWindowMs, max: rateLimitMax });
 
+app.locals.startedAt = Date.now();
+app.locals.isShuttingDown = false;
+
 const corsOptions = {
   origin(origin, callback) {
     if (!origin || clientOrigins.includes(origin)) {
@@ -34,6 +37,23 @@ if (compressionEnabled) {
 }
 app.use(express.json({ limit: jsonBodyLimit }));
 app.use(requestContext);
+
+app.use((req, res, next) => {
+  const isHealthRoute = req.path.startsWith('/api/health');
+
+  if (app.locals.isShuttingDown && !isHealthRoute) {
+    res.setHeader('Retry-After', '10');
+    return res.status(503).json({
+      ok: false,
+      error: 'Service Unavailable',
+      reason: 'Server is shutting down',
+      requestId: req.requestId,
+    });
+  }
+
+  return next();
+});
+
 app.use('/api', apiRateLimiter);
 
 app.get('/', (_req, res) => {
@@ -64,6 +84,7 @@ let isShuttingDown = false;
 function shutdown(signal) {
   if (isShuttingDown) return;
   isShuttingDown = true;
+  app.locals.isShuttingDown = true;
 
   console.log(`[Lifecycle] Received ${signal}. Starting graceful shutdown...`);
 
