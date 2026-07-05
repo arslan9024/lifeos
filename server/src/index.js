@@ -47,7 +47,51 @@ app.use('/api/legacy', legacyRouter);
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`LifeOS server running on http://localhost:${port}`);
   console.log(`[CORS] allowed origins: ${allowedOrigins.join(', ')}`);
 });
+
+let isShuttingDown = false;
+const SHUTDOWN_TIMEOUT_MS = 10_000;
+
+function shutdown(signal) {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+
+  console.log(`[Lifecycle] Received ${signal}. Starting graceful shutdown...`);
+
+  const forceExitTimer = setTimeout(() => {
+    console.error('[Lifecycle] Forced shutdown after timeout.');
+    process.exit(1);
+  }, SHUTDOWN_TIMEOUT_MS);
+
+  forceExitTimer.unref();
+
+  server.close((err) => {
+    clearTimeout(forceExitTimer);
+
+    if (err) {
+      console.error('[Lifecycle] Error during shutdown', err);
+      process.exit(1);
+      return;
+    }
+
+    console.log('[Lifecycle] Server closed cleanly.');
+    process.exit(0);
+  });
+}
+
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+
+process.on('unhandledRejection', (reason) => {
+  console.error('[Process] Unhandled promise rejection', reason);
+});
+
+process.on('uncaughtException', (error) => {
+  console.error('[Process] Uncaught exception', error);
+  shutdown('uncaughtException');
+});
+
+export { app, server };
