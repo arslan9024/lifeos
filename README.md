@@ -11,4 +11,4 @@ A lightweight planner app built with plain HTML, CSS, and JavaScript. It lets yo
 
 ## Running locally
 
-Open `/home/runner/work/lifeos/lifeos/index.html` directly in a browser, or serve the repository with a simple static file server.
+Open `index.html` directly in a browser, or serve the repository with a simple static file server.

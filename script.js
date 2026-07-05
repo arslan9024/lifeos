@@ -1,4 +1,5 @@
 const STORAGE_KEY = "lifeos-plans";
+const ID_COUNTER_KEY = "lifeos-plan-id-counter";
 const PRIORITY_ORDER = { High: 0, Medium: 1, Low: 2 };
 
 const form = document.querySelector("#planner-form");
@@ -203,5 +204,7 @@ function createId() {
     return crypto.randomUUID();
   }
 
-  return `plan-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const nextId = Number(window.localStorage.getItem(ID_COUNTER_KEY) || "0") + 1;
+  window.localStorage.setItem(ID_COUNTER_KEY, String(nextId));
+  return `plan-${nextId}`;
 }
