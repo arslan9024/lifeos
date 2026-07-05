@@ -1,5 +1,7 @@
 const STORAGE_KEY = "lifeos-plans";
 const ID_COUNTER_KEY = "lifeos-plan-id-counter";
+const DEFAULT_SORT_TIME = "23:59";
+const DEFAULT_DISPLAY_TIME = "09:00";
 const PRIORITY_ORDER = { High: 0, Medium: 1, Low: 2 };
 
 const form = document.querySelector("#planner-form");
@@ -152,8 +154,8 @@ function buildSummary(currentPlans) {
 }
 
 function comparePlans(left, right) {
-  const leftTime = `${left.date}T${left.time || "23:59"}`;
-  const rightTime = `${right.date}T${right.time || "23:59"}`;
+  const leftTime = `${left.date}T${left.time || DEFAULT_SORT_TIME}`;
+  const rightTime = `${right.date}T${right.time || DEFAULT_SORT_TIME}`;
 
   if (leftTime !== rightTime) {
     return leftTime.localeCompare(rightTime);
@@ -167,7 +169,7 @@ function comparePlans(left, right) {
 }
 
 function formatSchedule(date, time) {
-  const dateValue = new Date(`${date}T${time || "09:00"}`);
+  const dateValue = new Date(`${date}T${time || DEFAULT_DISPLAY_TIME}`);
   const formattedDate = new Intl.DateTimeFormat(undefined, {
     weekday: "short",
     month: "short",
