@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
+import { apiGet } from '@/lib/api';
 
 interface HealthResponse {
   ok: boolean;
@@ -17,14 +18,7 @@ export function AppHomePage() {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetch('/api/health', { signal: controller.signal })
-      .then(async (response) => {
-        if (!response.ok) {
-          throw new Error('Unable to load health status');
-        }
-
-        return response.json() as Promise<HealthResponse>;
-      })
+    apiGet<HealthResponse>('/api/health', controller.signal)
       .then((data) => {
         setHealth(data);
         setStatus('ready');
