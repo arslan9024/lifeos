@@ -28,4 +28,6 @@ export const config = {
   clientOrigins: parseOrigins(process.env.CLIENT_ORIGIN),
   jsonBodyLimit: process.env.JSON_BODY_LIMIT ?? '1mb',
   shutdownTimeoutMs: parsePositiveInt(process.env.SHUTDOWN_TIMEOUT_MS, 10_000, 'SHUTDOWN_TIMEOUT_MS'),
+  rateLimitWindowMs: parsePositiveInt(process.env.RATE_LIMIT_WINDOW_MS, 15 * 60 * 1000, 'RATE_LIMIT_WINDOW_MS'),
+  rateLimitMax: parsePositiveInt(process.env.RATE_LIMIT_MAX, 300, 'RATE_LIMIT_MAX'),
 };

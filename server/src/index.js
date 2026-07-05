@@ -6,10 +6,12 @@ import { healthRouter } from './routes/health.js';
 import { legacyRouter } from './routes/legacy.js';
 import { requestContext } from './middleware/requestContext.js';
 import { globalErrorHandler, notFoundHandler } from './middleware/errorHandlers.js';
+import { createApiRateLimiter } from './middleware/security.js';
 import { config } from './config/env.js';
 
 const app = express();
-const { port, clientOrigins, jsonBodyLimit, shutdownTimeoutMs, nodeEnv } = config;
+const { port, clientOrigins, jsonBodyLimit, shutdownTimeoutMs, nodeEnv, rateLimitWindowMs, rateLimitMax } = config;
+const apiRateLimiter = createApiRateLimiter({ windowMs: rateLimitWindowMs, max: rateLimitMax });
 
 const corsOptions = {
   origin(origin, callback) {
@@ -27,6 +29,7 @@ app.use(helmet());
 app.use(cors(corsOptions));
 app.use(express.json({ limit: jsonBodyLimit }));
 app.use(requestContext);
+app.use('/api', apiRateLimiter);
 
 app.get('/', (_req, res) => {
   res.json({
@@ -46,6 +49,7 @@ const server = app.listen(port, () => {
   console.log(`LifeOS server running on http://localhost:${port}`);
   console.log(`[Environment] ${nodeEnv}`);
   console.log(`[CORS] allowed origins: ${clientOrigins.join(', ')}`);
+  console.log(`[RateLimit] ${rateLimitMax} requests / ${rateLimitWindowMs}ms`);
 });
 
 let isShuttingDown = false;
