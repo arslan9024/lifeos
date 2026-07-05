@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import compression from 'compression';
 import helmet from 'helmet';
 import { healthRouter } from './routes/health.js';
 import { legacyRouter } from './routes/legacy.js';
@@ -10,7 +11,7 @@ import { createApiRateLimiter } from './middleware/security.js';
 import { config } from './config/env.js';
 
 const app = express();
-const { port, clientOrigins, jsonBodyLimit, shutdownTimeoutMs, nodeEnv, rateLimitWindowMs, rateLimitMax } = config;
+const { port, clientOrigins, jsonBodyLimit, shutdownTimeoutMs, nodeEnv, rateLimitWindowMs, rateLimitMax, trustProxy, compressionEnabled } = config;
 const apiRateLimiter = createApiRateLimiter({ windowMs: rateLimitWindowMs, max: rateLimitMax });
 
 const corsOptions = {
@@ -25,8 +26,12 @@ const corsOptions = {
 };
 
 app.disable('x-powered-by');
+app.set('trust proxy', trustProxy);
 app.use(helmet());
 app.use(cors(corsOptions));
+if (compressionEnabled) {
+  app.use(compression());
+}
 app.use(express.json({ limit: jsonBodyLimit }));
 app.use(requestContext);
 app.use('/api', apiRateLimiter);
@@ -50,6 +55,8 @@ const server = app.listen(port, () => {
   console.log(`[Environment] ${nodeEnv}`);
   console.log(`[CORS] allowed origins: ${clientOrigins.join(', ')}`);
   console.log(`[RateLimit] ${rateLimitMax} requests / ${rateLimitWindowMs}ms`);
+  console.log(`[Proxy] trust proxy: ${trustProxy}`);
+  console.log(`[Compression] enabled: ${compressionEnabled}`);
 });
 
 let isShuttingDown = false;

@@ -22,6 +22,16 @@ function parseOrigins(value) {
   return origins;
 }
 
+function parseBoolean(value, fallback) {
+  if (value == null || value === '') return fallback;
+
+  const normalized = String(value).trim().toLowerCase();
+  if (normalized === 'true') return true;
+  if (normalized === 'false') return false;
+
+  throw new Error(`Invalid boolean value: ${value}`);
+}
+
 export const config = {
   nodeEnv: process.env.NODE_ENV ?? 'development',
   port: parsePositiveInt(process.env.PORT, 5000, 'PORT'),
@@ -30,4 +40,6 @@ export const config = {
   shutdownTimeoutMs: parsePositiveInt(process.env.SHUTDOWN_TIMEOUT_MS, 10_000, 'SHUTDOWN_TIMEOUT_MS'),
   rateLimitWindowMs: parsePositiveInt(process.env.RATE_LIMIT_WINDOW_MS, 15 * 60 * 1000, 'RATE_LIMIT_WINDOW_MS'),
   rateLimitMax: parsePositiveInt(process.env.RATE_LIMIT_MAX, 300, 'RATE_LIMIT_MAX'),
+  trustProxy: parseBoolean(process.env.TRUST_PROXY, false),
+  compressionEnabled: parseBoolean(process.env.COMPRESSION_ENABLED, true),
 };
