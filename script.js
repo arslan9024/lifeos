@@ -154,27 +154,30 @@ function buildSummary(currentPlans) {
 }
 
 function comparePlans(left, right) {
-  const leftTime = `${left.date}T${left.time || DEFAULT_SORT_TIME}`;
-  const rightTime = `${right.date}T${right.time || DEFAULT_SORT_TIME}`;
+  const leftDateTime = `${left.date}T${left.time || DEFAULT_SORT_TIME}`;
+  const rightDateTime = `${right.date}T${right.time || DEFAULT_SORT_TIME}`;
 
-  if (leftTime !== rightTime) {
-    return leftTime.localeCompare(rightTime);
+  if (leftDateTime !== rightDateTime) {
+    return leftDateTime.localeCompare(rightDateTime);
   }
 
   if (left.priority !== right.priority) {
-    return PRIORITY_ORDER[left.priority] - PRIORITY_ORDER[right.priority];
+    return (
+      (PRIORITY_ORDER[left.priority] ?? Number.MAX_SAFE_INTEGER) -
+      (PRIORITY_ORDER[right.priority] ?? Number.MAX_SAFE_INTEGER)
+    );
   }
 
   return left.title.localeCompare(right.title);
 }
 
 function formatSchedule(date, time) {
-  const dateValue = new Date(`${date}T${time || DEFAULT_DISPLAY_TIME}`);
+  const scheduleDateTime = new Date(`${date}T${time || DEFAULT_DISPLAY_TIME}`);
   const formattedDate = new Intl.DateTimeFormat(undefined, {
     weekday: "short",
     month: "short",
     day: "numeric",
-  }).format(dateValue);
+  }).format(scheduleDateTime);
 
   if (!time) {
     return formattedDate;
@@ -183,7 +186,7 @@ function formatSchedule(date, time) {
   const formattedTime = new Intl.DateTimeFormat(undefined, {
     hour: "numeric",
     minute: "2-digit",
-  }).format(dateValue);
+  }).format(scheduleDateTime);
 
   return `${formattedDate} at ${formattedTime}`;
 }
