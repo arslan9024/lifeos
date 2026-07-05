@@ -1,0 +1,255 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(99, 102, 241, 0.15), transparent 30%),
+    #f3f4f6;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+.hero {
+  margin-bottom: 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #4f46e5;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.hero-copy {
+  max-width: 38rem;
+  margin: 0.75rem 0 0;
+  color: #4b5563;
+}
+
+.planner-layout {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+}
+
+.panel-header h2,
+.panel-header p {
+  margin: 0;
+}
+
+.panel-header p {
+  margin-top: 0.35rem;
+  color: #6b7280;
+}
+
+.planner-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.planner-form label {
+  display: grid;
+  gap: 0.4rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.field-row {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.planner-form input,
+.planner-form select,
+.planner-form textarea {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  background: #fff;
+  color: #111827;
+}
+
+.planner-form input:focus,
+.planner-form select:focus,
+.planner-form textarea:focus,
+.planner-form button:focus,
+.task-action:focus {
+  outline: 3px solid rgba(79, 70, 229, 0.2);
+  outline-offset: 2px;
+}
+
+.planner-form button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1.1rem;
+  background: #4f46e5;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.planner-form button:hover,
+.task-action:hover {
+  opacity: 0.92;
+}
+
+.empty-state {
+  margin-top: 1.25rem;
+  border: 1px dashed #c7d2fe;
+  border-radius: 16px;
+  padding: 1rem;
+  color: #6366f1;
+  background: #eef2ff;
+}
+
+.planner-list {
+  list-style: none;
+  display: grid;
+  gap: 0.9rem;
+  padding: 0;
+  margin: 1.25rem 0 0;
+}
+
+.planner-item {
+  display: grid;
+  gap: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.planner-item.is-complete {
+  background: #f9fafb;
+}
+
+.task-topline,
+.task-meta,
+.task-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.planner-item.is-complete .task-title {
+  color: #6b7280;
+  text-decoration: line-through;
+}
+
+.task-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.task-badge[data-priority="High"] {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.task-badge[data-priority="Medium"] {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.task-badge[data-priority="Low"] {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.task-meta {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.task-notes {
+  margin: 0;
+  color: #374151;
+  white-space: pre-wrap;
+}
+
+.task-actions {
+  justify-content: flex-start;
+}
+
+.task-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #374151;
+  font-weight: 600;
+}
+
+.task-action {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+}
+
+.task-action.delete {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .panel {
+    padding: 1.1rem;
+  }
+}

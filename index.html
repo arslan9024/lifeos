@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LifeOS Planner</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <p class="eyebrow">LifeOS</p>
+        <h1>Planner App</h1>
+        <p class="hero-copy">
+          Capture what matters, schedule it clearly, and keep your plan in sync
+          for the day ahead.
+        </p>
+      </section>
+
+      <section class="planner-layout" aria-label="Planner workspace">
+        <section class="panel" aria-labelledby="planner-form-title">
+          <div class="panel-header">
+            <h2 id="planner-form-title">Add a plan</h2>
+            <p>Create a task and place it on your schedule.</p>
+          </div>
+
+          <form id="planner-form" class="planner-form">
+            <label>
+              Task title
+              <input id="title" name="title" type="text" maxlength="80" required />
+            </label>
+
+            <div class="field-row">
+              <label>
+                Due date
+                <input id="date" name="date" type="date" required />
+              </label>
+
+              <label>
+                Time
+                <input id="time" name="time" type="time" />
+              </label>
+            </div>
+
+            <div class="field-row">
+              <label>
+                Priority
+                <select id="priority" name="priority">
+                  <option value="High">High</option>
+                  <option value="Medium" selected>Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Notes
+              <textarea id="notes" name="notes" rows="4" maxlength="240"></textarea>
+            </label>
+
+            <button type="submit">Save plan</button>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="planner-list-title">
+          <div class="panel-header">
+            <div>
+              <h2 id="planner-list-title">Upcoming plans</h2>
+              <p id="planner-summary">No plans yet.</p>
+            </div>
+          </div>
+
+          <div id="empty-state" class="empty-state">
+            Add your first task to start planning your day.
+          </div>
+
+          <ul id="planner-list" class="planner-list" aria-live="polite"></ul>
+        </section>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
