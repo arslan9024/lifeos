@@ -23,6 +23,26 @@ function Ensure-Remote {
   }
 }
 
+function Assert-Success {
+  param(
+    [string]$Step
+  )
+
+  if ($LASTEXITCODE -ne 0) {
+    throw "Command failed at step: $Step"
+  }
+}
+
+function Test-LocalTagExists {
+  param(
+    [string]$TagName
+  )
+
+  $tag = git tag -l $TagName
+  Assert-Success "check local tag $TagName"
+  return -not [string]::IsNullOrWhiteSpace($tag)
+}
+
 switch ($Action) {
   'status' {
     git status --short
@@ -42,18 +62,21 @@ switch ($Action) {
     Ensure-Clean-Tree
     Ensure-Remote
     git push -u origin main
+    Assert-Success "push main"
   }
 
   'tag' {
     Ensure-Clean-Tree
     Ensure-Remote
 
-    if (git rev-parse $Version 2>$null) {
+    if (Test-LocalTagExists $Version) {
       throw "Tag '$Version' already exists locally."
     }
 
     git tag $Version
+    Assert-Success "create local tag $Version"
     git push origin $Version
+    Assert-Success "push tag $Version"
     Write-Host "Tagged and pushed $Version" -ForegroundColor Green
   }
 
@@ -62,13 +85,16 @@ switch ($Action) {
     Ensure-Remote
 
     git push -u origin main
+    Assert-Success "push main"
 
-    if (git rev-parse $Version 2>$null) {
+    if (Test-LocalTagExists $Version) {
       throw "Tag '$Version' already exists locally. Choose another version."
     }
 
     git tag $Version
+    Assert-Success "create local tag $Version"
     git push origin $Version
+    Assert-Success "push tag $Version"
     Write-Host "Published main and release tag $Version" -ForegroundColor Green
   }
 }
