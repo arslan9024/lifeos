@@ -2,7 +2,7 @@
 
 ## Snapshot
 - Date: 2026-07-06
-- Branch: `master`
+- Branch: `main`
 - Verification baseline: `npm run verify:all` required
 - Status: Foundation hardened and automation-enabled
 
@@ -41,6 +41,8 @@
 - Added `CONTRIBUTING.md` with branch/verification expectations.
 - Added `release-tag.yml` for tag-triggered GitHub Releases with `verify:all` gate.
 - Added `plans/BRANCH_PROTECTION_CHECKLIST.md` and linked it from plans index.
+- Renamed local default branch from `master` to `main`.
+- Added `plans/GIT_PUBLISH_RUNBOOK.md` for remote setup and publish sequence.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean

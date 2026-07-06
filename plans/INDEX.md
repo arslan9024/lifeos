@@ -22,6 +22,9 @@ This folder is the single source of truth for project planning and execution tra
 6. `BRANCH_PROTECTION_CHECKLIST.md`
    - Repository branch-protection baseline for `main` (required checks/review gates).
 
+7. `GIT_PUBLISH_RUNBOOK.md`
+   - Step-by-step process to connect remote, publish `main`, and trigger releases.
+
 ## Usage
 
 - Update `DEVELOPMENT_TRACKER.md` after each implementation session.
