@@ -62,6 +62,7 @@ npm run dev
 - `npm run dev:server` — run only server
 - `npm run build` — build client
 - `npm run lint` — lint client source
+- `npm run verify:all` — run client verification + server tests
 
 ### Client
 
@@ -128,9 +129,7 @@ npm run dev
 ## Verification Commands
 
 ```bash
-npm --prefix client run lint
-npm --prefix client run build
-npm --prefix server test
+npm run verify:all
 npm run dev
 ```
 
@@ -139,6 +138,12 @@ Then check:
 - `http://localhost:5000/api/health`
 - `http://localhost:5000/api/health/live`
 - `http://localhost:5000/api/health/ready`
+
+## CI/CD
+
+- GitHub Actions workflow: `.github/workflows/ci.yml`
+- Triggers on push and pull request
+- Runs `npm run verify:all` on Ubuntu with Node 20
 
 ## Current Status
 
