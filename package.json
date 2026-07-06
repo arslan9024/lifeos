@@ -8,7 +8,9 @@
     "dev:client": "npm --prefix client run dev",
     "dev:server": "npm --prefix server run dev",
     "build": "npm --prefix client run build",
-    "lint": "npm --prefix client run lint"
+    "lint": "npm --prefix client run lint",
+    "verify:client": "npm --prefix client run lint && npm --prefix client run build",
+    "verify:server:health": "node scripts/check-health.mjs"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"
