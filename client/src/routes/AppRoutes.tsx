@@ -1,11 +1,22 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { PublicLayout } from '@/layouts/PublicLayout';
 import { MainLayout } from '@/layouts/MainLayout';
 import { LegacyLayout } from '@/layouts/LegacyLayout';
-import { LandingPage } from '@/pages/LandingPage';
-import { AppHomePage } from '@/pages/AppHomePage';
-import { LegacyHomePage } from '@/pages/LegacyHomePage';
-import { ComingSoonPage } from '@/pages/ComingSoonPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
+
+const LandingPage = lazy(async () => ({ default: (await import('@/pages/LandingPage')).LandingPage }));
+const AppHomePage = lazy(async () => ({ default: (await import('@/pages/AppHomePage')).AppHomePage }));
+const LegacyHomePage = lazy(async () => ({ default: (await import('@/pages/LegacyHomePage')).LegacyHomePage }));
+const ComingSoonPage = lazy(async () => ({ default: (await import('@/pages/ComingSoonPage')).ComingSoonPage }));
+
+function RouteFallback() {
+  return (
+    <div className="lifeos-stack lifeos-stack--sm">
+      <p className="lifeos-text">Loading page…</p>
+    </div>
+  );
+}
 
 const modulePlaceholders = [
   { path: 'goals', title: 'Goals', description: 'Track one major life objective with milestones and privacy controls.' },
@@ -23,37 +34,82 @@ const modulePlaceholders = [
 export function AppRoutes() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<LandingPage />} />
-        </Route>
-
-        <Route path="/app" element={<MainLayout />}>
-          <Route index element={<AppHomePage />} />
-          {modulePlaceholders.map(({ path, title, description }) => (
+      <Suspense fallback={<RouteFallback />}>
+        <Routes>
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<LandingPage />} />
             <Route
-              key={path}
-              path={path}
-              element={<ComingSoonPage title={title} description={description} />}
+              path="*"
+              element={
+                <NotFoundPage
+                  title="Public route not found"
+                  description="This public page could not be found."
+                  backTo="/"
+                  backLabel="Back to landing"
+                />
+              }
             />
-          ))}
-        </Route>
+          </Route>
 
-        <Route path="/legacy" element={<LegacyLayout />}>
-          <Route index element={<LegacyHomePage />} />
+          <Route path="/app" element={<MainLayout />}>
+            <Route index element={<AppHomePage />} />
+            {modulePlaceholders.map(({ path, title, description }) => (
+              <Route
+                key={path}
+                path={path}
+                element={<ComingSoonPage title={title} description={description} />}
+              />
+            ))}
+            <Route
+              path="*"
+              element={
+                <NotFoundPage
+                  title="App route not found"
+                  description="This app module route does not exist yet."
+                  backTo="/app"
+                  backLabel="Back to dashboard"
+                />
+              }
+            />
+          </Route>
+
+          <Route path="/legacy" element={<LegacyLayout />}>
+            <Route index element={<LegacyHomePage />} />
+            <Route
+              path="property"
+              element={
+                <ComingSoonPage
+                  title="Legacy Property Sandbox"
+                  description="The old property module is kept separate for future development and migration work."
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <NotFoundPage
+                  title="Legacy route not found"
+                  description="This legacy sandbox route does not exist."
+                  backTo="/legacy"
+                  backLabel="Back to legacy home"
+                />
+              }
+            />
+          </Route>
+
           <Route
-            path="property"
+            path="*"
             element={
-              <ComingSoonPage
-                title="Legacy Property Sandbox"
-                description="The old property module is kept separate for future development and migration work."
+              <NotFoundPage
+                title="Route not found"
+                description="The route you entered is not available in LifeOS."
+                backTo="/"
+                backLabel="Return home"
               />
             }
           />
-        </Route>
-
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
