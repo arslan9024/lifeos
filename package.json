@@ -10,7 +10,8 @@
     "build": "npm --prefix client run build",
     "lint": "npm --prefix client run lint",
     "verify:client": "npm --prefix client run lint && npm --prefix client run build",
-    "verify:server:health": "node scripts/check-health.mjs"
+    "verify:server:health": "node scripts/check-health.mjs",
+    "test:server": "npm --prefix server test"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

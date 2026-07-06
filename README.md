@@ -74,6 +74,8 @@ npm run dev
 
 - `npm --prefix server run dev`
 - `npm --prefix server run start`
+- `npm --prefix server test`
+- `npm --prefix server run test:watch`
 
 ## API Health & Ops Endpoints
 
@@ -128,6 +130,7 @@ npm run dev
 ```bash
 npm --prefix client run lint
 npm --prefix client run build
+npm --prefix server test
 npm run dev
 ```
 
