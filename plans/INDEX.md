@@ -19,6 +19,9 @@ This folder is the single source of truth for project planning and execution tra
 5. `COPILOT_AUTOPILOT_WORKFLOW.md`
    - Team workflow for using GitHub Copilot Chat/agents safely and efficiently.
 
+6. `BRANCH_PROTECTION_CHECKLIST.md`
+   - Repository branch-protection baseline for `main` (required checks/review gates).
+
 ## Usage
 
 - Update `DEVELOPMENT_TRACKER.md` after each implementation session.

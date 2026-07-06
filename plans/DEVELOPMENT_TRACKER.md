@@ -18,21 +18,29 @@
 | Backend | Liveness/readiness + shutdown gate | ✅ |
 | Testing | Server integration tests (supertest) | ✅ |
 | Tooling | verify scripts + smoke checks + CI workflow | ✅ |
+| Tooling | Tag-based release workflow automation | ✅ |
 | Docs | Root README updated to current architecture | ✅ |
+| Governance | PR/Issue templates + CONTRIBUTING + branch-protection checklist | ✅ |
 
 ## Active Workstream
-- Move planning system into `/plans` and maintain a live execution board.
+- Operationalize merge/release governance for `main` readiness.
 
 ## Next Priority Queue
 1. Implement first real persisted feature module (Goals or Tasks).
 2. Add route-level API error presentation patterns on client.
 3. Expand server tests for rate-limiter and payload limit edges.
-4. Add PR template + contribution guide.
+4. Add CODEOWNERS and environment-specific deployment runbook.
 
 ## Verification Record (latest)
 - `verify:client`: pass
 - `test:server`: pass
 - `verify:smoke`: pass (after Windows spawn fix)
+
+## Session Update (2026-07-06)
+- Added PR template and issue templates for standardized intake/review.
+- Added `CONTRIBUTING.md` with branch/verification expectations.
+- Added `release-tag.yml` for tag-triggered GitHub Releases with `verify:all` gate.
+- Added `plans/BRANCH_PROTECTION_CHECKLIST.md` and linked it from plans index.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean

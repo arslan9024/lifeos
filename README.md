@@ -149,6 +149,8 @@ Then check:
 - GitHub Actions workflow: `.github/workflows/ci.yml`
 - Triggers on push and pull request
 - Runs `npm run verify:all` on Ubuntu with Node 20
+- GitHub Actions release workflow: `.github/workflows/release-tag.yml`
+- Tag-based releases on `v*.*.*` with automated release notes
 
 ## Planning & Tracking System
 
@@ -160,6 +162,7 @@ All execution planning artifacts now live in `/plans`:
 - `plans/PHASE_BACKLOG.md`
 - `plans/RELEASE_READINESS_CHECKLIST.md`
 - `plans/COPILOT_AUTOPILOT_WORKFLOW.md`
+- `plans/BRANCH_PROTECTION_CHECKLIST.md`
 
 Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 
@@ -168,6 +171,9 @@ Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 - `.github/copilot-instructions.md` — coding/verification rules for Copilot
 - `.github/instructions/*.instructions.md` — scoped frontend/backend guidance
 - `AGENTS.md` — role-based autopilot workflow for implementation/verifier/docs
+- `.github/pull_request_template.md` — standardized PR quality/verification checklist
+- `.github/ISSUE_TEMPLATE/*` — structured bug report and feature request intake
+- `CONTRIBUTING.md` — branching model and contribution workflow
 
 ## Current Status
 

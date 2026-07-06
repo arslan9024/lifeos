@@ -1,0 +1,60 @@
+name: Feature Request
+description: Propose an enhancement for LifeOS
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Statement
+      description: What user or business problem does this solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      description: Describe the preferred implementation direction.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] Criterion 1
+        - [ ] Criterion 2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Frontend
+        - Backend
+        - Infrastructure / CI
+        - Documentation
+        - Testing
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk / Dependencies
+      description: Any migration impact, dependencies, or blockers.
+
+  - type: checkboxes
+    id: readiness
+    attributes:
+      label: Request Checklist
+      options:
+        - label: This request aligns with production-readiness goals.
+          required: true
+        - label: I included concrete acceptance criteria.
+          required: true
