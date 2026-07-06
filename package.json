@@ -12,7 +12,8 @@
     "verify:client": "npm --prefix client run lint && npm --prefix client run build",
     "verify:server:health": "node scripts/check-health.mjs",
     "test:server": "npm --prefix server test",
-    "verify:all": "npm run verify:client && npm run test:server"
+    "verify:smoke": "node scripts/smoke-server.mjs",
+    "verify:all": "npm run verify:client && npm run test:server && npm run verify:smoke"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

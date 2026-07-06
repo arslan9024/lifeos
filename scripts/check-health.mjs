@@ -1,4 +1,4 @@
-const baseUrl = process.env.LIFEOS_API_URL?.trim() || 'http://localhost:5000';
+import { pathToFileURL } from 'node:url';
 
 const endpoints = [
   { path: '/api/health', expectedStatus: 200, requiredKeys: ['ok', 'service', 'environment', 'uptimeSeconds'] },
@@ -6,7 +6,7 @@ const endpoints = [
   { path: '/api/health/ready', expectedStatus: 200, requiredKeys: ['ok', 'status'] },
 ];
 
-async function checkEndpoint({ path, expectedStatus, requiredKeys }) {
+async function checkEndpoint(baseUrl, { path, expectedStatus, requiredKeys }) {
   const url = `${baseUrl}${path}`;
   const response = await fetch(url);
 
@@ -25,18 +25,20 @@ async function checkEndpoint({ path, expectedStatus, requiredKeys }) {
   return { path, status: response.status, body };
 }
 
-async function run() {
+export async function checkHealth(baseUrl = process.env.LIFEOS_API_URL?.trim() || 'http://localhost:5000') {
   console.log(`[health-check] Base URL: ${baseUrl}`);
 
   for (const endpoint of endpoints) {
-    const result = await checkEndpoint(endpoint);
+    const result = await checkEndpoint(baseUrl, endpoint);
     console.log(`[health-check] OK ${result.path} (${result.status})`);
   }
 
   console.log('[health-check] All health endpoints passed.');
 }
 
-run().catch((error) => {
-  console.error('[health-check] FAILED', error.message);
-  process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  checkHealth().catch((error) => {
+    console.error('[health-check] FAILED', error.message);
+    process.exit(1);
+  });
+}

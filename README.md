@@ -19,7 +19,10 @@ lifeos/
 │  ├─ src/errors/          # API error types
 │  ├─ src/middleware/      # Request context, security, error handling
 │  └─ src/routes/          # Health and legacy route modules
-└─ package.json            # Root orchestration scripts
+├─ scripts/                # Health and smoke verification utilities
+├─ plans/                  # Master plans, trackers, backlog, release checklists
+├─ AGENTS.md               # Agent-role workflow conventions
+└─ .github/copilot-instructions.md # Repo-specific Copilot guidance
 ```
 
 ## Prerequisites
@@ -62,7 +65,8 @@ npm run dev
 - `npm run dev:server` — run only server
 - `npm run build` — build client
 - `npm run lint` — lint client source
-- `npm run verify:all` — run client verification + server tests
+- `npm run verify:smoke` — start server and run automated health smoke checks
+- `npm run verify:all` — run client verification + server tests + smoke checks
 
 ### Client
 
@@ -105,6 +109,7 @@ npm run dev
 - Env-aware API utility (`VITE_API_BASE_URL` with local proxy fallback)
 - Route-level lazy loading with `Suspense`
 - Explicit not-found pages for public, app, and legacy route spaces
+- Global React error boundary with recovery actions
 
 ## Environment Variables
 
@@ -144,6 +149,25 @@ Then check:
 - GitHub Actions workflow: `.github/workflows/ci.yml`
 - Triggers on push and pull request
 - Runs `npm run verify:all` on Ubuntu with Node 20
+
+## Planning & Tracking System
+
+All execution planning artifacts now live in `/plans`:
+
+- `plans/INDEX.md`
+- `plans/PROJECT_MASTER_PLAN.md`
+- `plans/DEVELOPMENT_TRACKER.md`
+- `plans/PHASE_BACKLOG.md`
+- `plans/RELEASE_READINESS_CHECKLIST.md`
+- `plans/COPILOT_AUTOPILOT_WORKFLOW.md`
+
+Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
+
+## Copilot Efficiency Setup
+
+- `.github/copilot-instructions.md` — coding/verification rules for Copilot
+- `.github/instructions/*.instructions.md` — scoped frontend/backend guidance
+- `AGENTS.md` — role-based autopilot workflow for implementation/verifier/docs
 
 ## Current Status
 
