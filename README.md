@@ -89,6 +89,17 @@ npm run dev
 - `GET /api/health/ready` — readiness probe (returns 503 during shutdown)
 - `GET /api/legacy` — isolated legacy sandbox route
 
+## Goals Module API (First Persisted Feature)
+
+- `GET /api/goals` — list goals (runtime persisted in server memory)
+- `POST /api/goals` — create a goal (`title`, optional `notes`, `targetDate`)
+- `PATCH /api/goals/:goalId/toggle` — toggle completion state
+- `DELETE /api/goals/:goalId` — remove a goal
+
+Client route:
+
+- `/app/goals` — goals manager UI with add/toggle/delete + retryable API error UX
+
 ## Implemented Server Hardening
 
 - Security headers via `helmet`
@@ -191,4 +202,5 @@ Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 - Client and server are separated and orchestrated from root
 - Multi-layer backend hardening implemented and validated
 - Route UX upgraded with lazy loading + explicit 404 handling
+- Goals module shipped as first persisted feature vertical slice (API + UI + tests)
 - Repository is on incremental, verified commit-by-commit workflow

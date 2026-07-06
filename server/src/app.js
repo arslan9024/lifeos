@@ -4,6 +4,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import { healthRouter } from './routes/health.js';
 import { legacyRouter } from './routes/legacy.js';
+import { createGoalsRouter } from './routes/goals.js';
 import { requestContext } from './middleware/requestContext.js';
 import { globalErrorHandler, notFoundHandler } from './middleware/errorHandlers.js';
 import { createApiRateLimiter } from './middleware/security.js';
@@ -75,6 +76,7 @@ export function createApp(config) {
   });
 
   app.use('/api/health', healthRouter);
+  app.use('/api/goals', createGoalsRouter());
   app.use('/api/legacy', legacyRouter);
 
   app.use(notFoundHandler);

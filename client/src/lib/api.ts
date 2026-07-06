@@ -74,3 +74,55 @@ export async function apiGet<T>(path: string, signal?: AbortSignal): Promise<T> 
 
   return (await response.json()) as T;
 }
+
+async function apiSend<TResponse>(
+  method: 'POST' | 'PATCH' | 'DELETE',
+  path: string,
+  body?: unknown,
+  signal?: AbortSignal,
+): Promise<TResponse> {
+  const response = await fetch(buildUrl(path), {
+    method,
+    signal,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: body == null ? undefined : JSON.stringify(body),
+  });
+
+  if (!response.ok) {
+    const contentType = response.headers.get('content-type') || '';
+    const maybeJson = contentType.includes('application/json');
+
+    let payload: ApiErrorPayload | undefined;
+
+    if (maybeJson) {
+      const parsed = (await response.json()) as unknown;
+      if (isApiErrorPayload(parsed)) {
+        payload = parsed;
+      }
+    }
+
+    throw new ApiRequestError(
+      path,
+      response.status,
+      getErrorMessage(path, response.status, payload),
+      payload?.code,
+      payload?.requestId,
+    );
+  }
+
+  return (await response.json()) as TResponse;
+}
+
+export function apiPost<TResponse>(path: string, body: unknown, signal?: AbortSignal): Promise<TResponse> {
+  return apiSend<TResponse>('POST', path, body, signal);
+}
+
+export function apiPatch<TResponse>(path: string, body: unknown, signal?: AbortSignal): Promise<TResponse> {
+  return apiSend<TResponse>('PATCH', path, body, signal);
+}
+
+export function apiDelete<TResponse>(path: string, signal?: AbortSignal): Promise<TResponse> {
+  return apiSend<TResponse>('DELETE', path, undefined, signal);
+}

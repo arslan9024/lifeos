@@ -14,13 +14,16 @@
 | Frontend | Lazy routing + explicit 404 pages | ✅ |
 | Frontend | Global error boundary | ✅ |
 | Frontend | Route-level API error presentation + retry pattern | ✅ |
+| Frontend | Goals module UI + API integration | ✅ |
 | Backend | CORS/helmet/compression/rate-limit hardening | ✅ |
 | Backend | Request IDs + structured errors + lifecycle guards | ✅ |
 | Backend | Liveness/readiness + shutdown gate | ✅ |
 | Backend | Structured rate-limit errors with requestId | ✅ |
+| Backend | Goals module CRUD API (in-memory persisted runtime state) | ✅ |
 | Testing | Server integration tests (supertest) | ✅ |
 | Testing | Added payload-limit + rate-limit integration edge tests | ✅ |
 | Testing | Added security middleware header/CORS integration tests | ✅ |
+| Testing | Added Goals API integration tests | ✅ |
 | Tooling | verify scripts + smoke checks + CI workflow | ✅ |
 | Tooling | Tag-based release workflow automation | ✅ |
 | Docs | Root README updated to current architecture | ✅ |
@@ -32,7 +35,7 @@
 - Operationalize merge/release governance for `main` readiness.
 
 ## Next Priority Queue
-1. Implement first real persisted feature module (Goals or Tasks).
+1. Implement Tasks module with matching API + client pattern.
 2. Expand route-level API error pattern to additional data pages as they are added.
 3. Expand server tests for lifecycle and proxy-awareness edge behaviors.
 4. Enable GitHub branch protection rules in repository settings.
@@ -61,6 +64,8 @@
 - Added typed API request errors on client with server `code`/`requestId` support.
 - Added reusable `ApiErrorNotice` and applied explicit retry/error UX on `AppHomePage`.
 - Added server integration tests for Helmet headers, x-powered-by suppression, and allowed-origin CORS headers.
+- Added first persisted feature module: Goals (server CRUD + client `/app/goals` integration).
+- Added goals integration tests and reusable client form/list interaction pattern.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean
