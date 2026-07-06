@@ -16,7 +16,9 @@
 | Backend | CORS/helmet/compression/rate-limit hardening | ✅ |
 | Backend | Request IDs + structured errors + lifecycle guards | ✅ |
 | Backend | Liveness/readiness + shutdown gate | ✅ |
+| Backend | Structured rate-limit errors with requestId | ✅ |
 | Testing | Server integration tests (supertest) | ✅ |
+| Testing | Added payload-limit + rate-limit integration edge tests | ✅ |
 | Tooling | verify scripts + smoke checks + CI workflow | ✅ |
 | Tooling | Tag-based release workflow automation | ✅ |
 | Docs | Root README updated to current architecture | ✅ |
@@ -30,7 +32,7 @@
 ## Next Priority Queue
 1. Implement first real persisted feature module (Goals or Tasks).
 2. Add route-level API error presentation patterns on client.
-3. Expand server tests for rate-limiter and payload limit edges.
+3. Expand server tests for additional security middleware edges.
 4. Enable GitHub branch protection rules in repository settings.
 
 ## Verification Record (latest)
@@ -52,6 +54,8 @@
 - Added `plans/COMMAND_ACCESS_RUNBOOK.md` and linked it from plans index.
 - Replaced CODEOWNERS placeholder owner with `@arslan9024`.
 - Restored comprehensive `.gitignore` coverage for Node/Vite/TS and env safety.
+- Added backend integration tests for JSON body-size and rate-limit edge behavior.
+- Rate-limit responses now include stable `code` and `requestId` for traceability.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean

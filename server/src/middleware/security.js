@@ -6,9 +6,13 @@ export function createApiRateLimiter({ windowMs, max }) {
     max,
     standardHeaders: true,
     legacyHeaders: false,
-    message: {
-      ok: false,
-      error: 'Too many requests',
+    handler(req, res, _next, options) {
+      return res.status(options.statusCode).json({
+        ok: false,
+        error: 'Too many requests',
+        code: 'RATE_LIMIT_EXCEEDED',
+        requestId: req.requestId,
+      });
     },
   });
 }

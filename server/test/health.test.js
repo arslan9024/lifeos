@@ -83,3 +83,37 @@ test('Disallowed CORS origin returns 403 with CORS_ORIGIN_DENIED code', async ()
   assert.equal(response.body.code, 'CORS_ORIGIN_DENIED');
   assert.ok(response.body.requestId);
 });
+
+test('Payload over JSON_BODY_LIMIT returns 413 PAYLOAD_TOO_LARGE with requestId', async () => {
+  const tinyBodyApp = createApp({
+    ...config,
+    jsonBodyLimit: '10b',
+  });
+
+  const response = await request(tinyBodyApp)
+    .post('/api/legacy')
+    .set('Content-Type', 'application/json')
+    .send({ value: 'this payload is intentionally too large' })
+    .expect(413);
+
+  assert.equal(response.body.ok, false);
+  assert.equal(response.body.code, 'PAYLOAD_TOO_LARGE');
+  assert.ok(response.body.requestId);
+});
+
+test('Rate limiter returns 429 RATE_LIMIT_EXCEEDED with requestId', async () => {
+  const strictRateLimitApp = createApp({
+    ...config,
+    rateLimitMax: 1,
+    rateLimitWindowMs: 60_000,
+  });
+
+  await request(strictRateLimitApp).get('/api/health').expect(200);
+
+  const response = await request(strictRateLimitApp).get('/api/health').expect(429);
+
+  assert.equal(response.body.ok, false);
+  assert.equal(response.body.error, 'Too many requests');
+  assert.equal(response.body.code, 'RATE_LIMIT_EXCEEDED');
+  assert.ok(response.body.requestId);
+});
