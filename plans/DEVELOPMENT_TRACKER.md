@@ -48,6 +48,10 @@
 - `test:server`: pass
 - `verify:smoke`: pass (after Windows spawn fix)
 
+## Dev Ports
+- Client: `http://localhost:5301`
+- Server: `http://localhost:5300`
+
 ## Session Update (2026-07-06)
 - Added PR template and issue templates for standardized intake/review.
 - Added `CONTRIBUTING.md` with branch/verification expectations.

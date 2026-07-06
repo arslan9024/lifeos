@@ -10,7 +10,7 @@ function wait(ms) {
 async function waitForServer(maxAttempts = 30) {
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     try {
-      await checkHealth('http://localhost:5000');
+      await checkHealth('http://localhost:5300');
       return;
     } catch {
       await wait(500);

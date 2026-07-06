@@ -53,8 +53,8 @@ Run both apps:
 npm run dev
 ```
 
-- Client: http://localhost:5173
-- Server: http://localhost:5000
+- Client: http://localhost:5301
+- Server: http://localhost:5300
 
 ## Scripts
 
@@ -162,9 +162,9 @@ npm run dev
 
 Then check:
 
-- `http://localhost:5000/api/health`
-- `http://localhost:5000/api/health/live`
-- `http://localhost:5000/api/health/ready`
+- `http://localhost:5300/api/health`
+- `http://localhost:5300/api/health/live`
+- `http://localhost:5300/api/health/ready`
 
 ## CI/CD
 

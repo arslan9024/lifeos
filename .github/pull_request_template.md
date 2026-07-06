@@ -12,7 +12,7 @@
 
 ## Verification
 - [ ] `npm run verify:all`
-- [ ] `npm run dev` starts client (`:5173`) and server (`:5000`)
+- [ ] `npm run dev` starts client (`:5301`) and server (`:5300`)
 - [ ] Health checks validated:
   - [ ] `/api/health`
   - [ ] `/api/health/live`

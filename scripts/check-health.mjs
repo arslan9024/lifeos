@@ -25,7 +25,7 @@ async function checkEndpoint(baseUrl, { path, expectedStatus, requiredKeys }) {
   return { path, status: response.status, body };
 }
 
-export async function checkHealth(baseUrl = process.env.LIFEOS_API_URL?.trim() || 'http://localhost:5000') {
+export async function checkHealth(baseUrl = process.env.LIFEOS_API_URL?.trim() || 'http://localhost:5300') {
   console.log(`[health-check] Base URL: ${baseUrl}`);
 
   for (const endpoint of endpoints) {

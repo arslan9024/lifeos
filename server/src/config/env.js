@@ -10,7 +10,7 @@ function parsePositiveInt(value, fallback, label) {
 }
 
 function parseOrigins(value) {
-  const origins = (value ?? 'http://localhost:5173')
+  const origins = (value ?? 'http://localhost:5301')
     .split(',')
     .map((origin) => origin.trim())
     .filter(Boolean);
@@ -34,7 +34,7 @@ function parseBoolean(value, fallback) {
 
 export const config = {
   nodeEnv: process.env.NODE_ENV ?? 'development',
-  port: parsePositiveInt(process.env.PORT, 5000, 'PORT'),
+  port: parsePositiveInt(process.env.PORT, 5300, 'PORT'),
   clientOrigins: parseOrigins(process.env.CLIENT_ORIGIN),
   jsonBodyLimit: process.env.JSON_BODY_LIMIT ?? '1mb',
   shutdownTimeoutMs: parsePositiveInt(process.env.SHUTDOWN_TIMEOUT_MS, 10_000, 'SHUTDOWN_TIMEOUT_MS'),
