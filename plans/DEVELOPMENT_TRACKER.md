@@ -13,6 +13,7 @@
 | Frontend | CRA cleanup + TS7-safe pathing | ✅ |
 | Frontend | Lazy routing + explicit 404 pages | ✅ |
 | Frontend | Global error boundary | ✅ |
+| Frontend | Route-level API error presentation + retry pattern | ✅ |
 | Backend | CORS/helmet/compression/rate-limit hardening | ✅ |
 | Backend | Request IDs + structured errors + lifecycle guards | ✅ |
 | Backend | Liveness/readiness + shutdown gate | ✅ |
@@ -31,7 +32,7 @@
 
 ## Next Priority Queue
 1. Implement first real persisted feature module (Goals or Tasks).
-2. Add route-level API error presentation patterns on client.
+2. Expand route-level API error pattern to additional data pages as they are added.
 3. Expand server tests for additional security middleware edges.
 4. Enable GitHub branch protection rules in repository settings.
 
@@ -56,6 +57,8 @@
 - Restored comprehensive `.gitignore` coverage for Node/Vite/TS and env safety.
 - Added backend integration tests for JSON body-size and rate-limit edge behavior.
 - Rate-limit responses now include stable `code` and `requestId` for traceability.
+- Added typed API request errors on client with server `code`/`requestId` support.
+- Added reusable `ApiErrorNotice` and applied explicit retry/error UX on `AppHomePage`.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean

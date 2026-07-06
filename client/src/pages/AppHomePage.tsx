@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { apiGet } from '@/lib/api';
+import { ApiRequestError, apiGet } from '@/lib/api';
+import { ApiErrorNotice } from '@/components/system/ApiErrorNotice';
 
 interface HealthResponse {
   ok: boolean;
@@ -14,21 +15,39 @@ interface HealthResponse {
 export function AppHomePage() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
+  const [error, setError] = useState<ApiRequestError | null>(null);
 
-  useEffect(() => {
-    const controller = new AbortController();
+  const loadHealth = useCallback((signal?: AbortSignal) => {
+    setStatus('loading');
+    setError(null);
 
-    apiGet<HealthResponse>('/api/health', controller.signal)
+    apiGet<HealthResponse>('/api/health', signal)
       .then((data) => {
         setHealth(data);
         setStatus('ready');
       })
-      .catch(() => {
+      .catch((caughtError: unknown) => {
+        if (caughtError instanceof DOMException && caughtError.name === 'AbortError') {
+          return;
+        }
+
+        if (caughtError instanceof ApiRequestError) {
+          setError(caughtError);
+        } else {
+          setError(new ApiRequestError('/api/health', 0, 'Unexpected client error while contacting the server.'));
+        }
+
         setStatus('error');
       });
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    loadHealth(controller.signal);
 
     return () => controller.abort();
-  }, []);
+  }, [loadHealth]);
 
   const healthTone = useMemo(() => {
     if (status === 'ready' && health?.ok) {
@@ -72,6 +91,7 @@ export function AppHomePage() {
                   ? 'The client could not reach the backend yet.'
                   : 'Checking the server status through the Vite proxy...'}
             </p>
+            {status === 'error' ? <ApiErrorNotice error={error} onRetry={() => loadHealth()} /> : null}
             {health?.timestamp ? <p className="lifeos-meta">Last checked: {health.timestamp}</p> : null}
           </div>
         </Card>

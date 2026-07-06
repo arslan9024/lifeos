@@ -294,6 +294,32 @@ a {
   font-weight: 600;
 }
 
+.lifeos-error-notice {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(180, 83, 9, 0.28);
+  background: rgba(180, 83, 9, 0.08);
+}
+
+.lifeos-error-notice__title {
+  margin: 0;
+  font-weight: 700;
+  color: #92400e;
+}
+
+.lifeos-error-notice__message {
+  margin: 0;
+  color: #7c2d12;
+}
+
+.lifeos-error-notice__meta {
+  margin: 0;
+  padding-left: 18px;
+  color: #7c2d12;
+}
+
 @media (max-width: 1024px) {
   .lifeos-shell {
     grid-template-columns: 1fr;
