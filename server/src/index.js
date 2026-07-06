@@ -9,6 +9,7 @@ import { requestContext } from './middleware/requestContext.js';
 import { globalErrorHandler, notFoundHandler } from './middleware/errorHandlers.js';
 import { createApiRateLimiter } from './middleware/security.js';
 import { config } from './config/env.js';
+import { ApiError } from './errors/ApiError.js';
 
 const app = express();
 const { port, clientOrigins, jsonBodyLimit, shutdownTimeoutMs, nodeEnv, rateLimitWindowMs, rateLimitMax, trustProxy, compressionEnabled } = config;
@@ -23,7 +24,7 @@ const corsOptions = {
       return callback(null, true);
     }
 
-    return callback(new Error(`Origin not allowed: ${origin}`));
+    return callback(new ApiError(403, `Origin not allowed: ${origin}`, 'CORS_ORIGIN_DENIED'));
   },
   credentials: true,
 };
@@ -32,11 +33,11 @@ app.disable('x-powered-by');
 app.set('trust proxy', trustProxy);
 app.use(helmet());
 app.use(cors(corsOptions));
+app.use(requestContext);
 if (compressionEnabled) {
   app.use(compression());
 }
 app.use(express.json({ limit: jsonBodyLimit }));
-app.use(requestContext);
 
 app.use((req, res, next) => {
   const isHealthRoute = req.path.startsWith('/api/health');
