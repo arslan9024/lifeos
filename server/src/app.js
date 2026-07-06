@@ -39,8 +39,8 @@ export function createApp(config) {
   app.disable('x-powered-by');
   app.set('trust proxy', trustProxy);
   app.use(helmet());
-  app.use(cors(corsOptions));
   app.use(requestContext);
+  app.use(cors(corsOptions));
 
   if (compressionEnabled) {
     app.use(compression());
