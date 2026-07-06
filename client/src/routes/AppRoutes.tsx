@@ -8,6 +8,7 @@ import { NotFoundPage } from '@/pages/NotFoundPage';
 const LandingPage = lazy(async () => ({ default: (await import('@/pages/LandingPage')).LandingPage }));
 const AppHomePage = lazy(async () => ({ default: (await import('@/pages/AppHomePage')).AppHomePage }));
 const GoalsPage = lazy(async () => ({ default: (await import('@/pages/GoalsPage')).GoalsPage }));
+const TasksPage = lazy(async () => ({ default: (await import('@/pages/TasksPage')).TasksPage }));
 const LegacyHomePage = lazy(async () => ({ default: (await import('@/pages/LegacyHomePage')).LegacyHomePage }));
 const ComingSoonPage = lazy(async () => ({ default: (await import('@/pages/ComingSoonPage')).ComingSoonPage }));
 
@@ -20,7 +21,6 @@ function RouteFallback() {
 }
 
 const modulePlaceholders = [
-  { path: 'tasks', title: 'Tasks', description: 'Capture and prioritize work with a calm, focused workflow.' },
   { path: 'calendar', title: 'Calendar', description: 'Plan time, events, and deadlines in one place.' },
   { path: 'notes', title: 'Notes', description: 'Quickly capture ideas, summaries, and personal records.' },
   { path: 'documents', title: 'Documents', description: 'Organize private files, records, and linked attachments.' },
@@ -54,6 +54,7 @@ export function AppRoutes() {
           <Route path="/app" element={<MainLayout />}>
             <Route index element={<AppHomePage />} />
             <Route path="goals" element={<GoalsPage />} />
+            <Route path="tasks" element={<TasksPage />} />
             {modulePlaceholders.map(({ path, title, description }) => (
               <Route
                 key={path}

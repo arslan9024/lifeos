@@ -307,7 +307,8 @@ a {
 }
 
 .lifeos-form__field input,
-.lifeos-form__field textarea {
+.lifeos-form__field textarea,
+.lifeos-form__field select {
   width: 100%;
   border: 1px solid var(--border);
   border-radius: 10px;

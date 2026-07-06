@@ -100,6 +100,17 @@ Client route:
 
 - `/app/goals` — goals manager UI with add/toggle/delete + retryable API error UX
 
+## Tasks Module API
+
+- `GET /api/tasks` — list tasks (runtime persisted in server memory)
+- `POST /api/tasks` — create a task (`title`, optional `notes`, `dueDate`, optional `priority`)
+- `PATCH /api/tasks/:taskId/toggle` — toggle completion state
+- `DELETE /api/tasks/:taskId` — remove a task
+
+Client route:
+
+- `/app/tasks` — tasks manager UI with add/toggle/delete/priority + retryable API error UX
+
 ## Implemented Server Hardening
 
 - Security headers via `helmet`
@@ -203,4 +214,5 @@ Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 - Multi-layer backend hardening implemented and validated
 - Route UX upgraded with lazy loading + explicit 404 handling
 - Goals module shipped as first persisted feature vertical slice (API + UI + tests)
+- Tasks module shipped as second persisted feature vertical slice (API + UI + tests)
 - Repository is on incremental, verified commit-by-commit workflow
