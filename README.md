@@ -178,6 +178,12 @@ Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 - `.github/CODEOWNERS` — area-based default code review ownership
 - `CONTRIBUTING.md` — branching model and contribution workflow
 
+## Direct Command Access
+
+- VS Code tasks configured in `.vscode/tasks.json`
+- PowerShell helper available at `scripts/ops.ps1`
+- Usage guide: `plans/COMMAND_ACCESS_RUNBOOK.md`
+
 ## Current Status
 
 - Legacy CRA/property leftovers removed

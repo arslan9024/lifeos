@@ -28,6 +28,9 @@ This folder is the single source of truth for project planning and execution tra
 8. `DEPLOYMENT_RUNBOOK.md`
    - Release/deployment gate, smoke checks, and rollback operating procedure.
 
+9. `COMMAND_ACCESS_RUNBOOK.md`
+   - Direct command execution patterns for chat, PowerShell helper, and VS Code tasks.
+
 ## Usage
 
 - Update `DEVELOPMENT_TRACKER.md` after each implementation session.

@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "LifeOS: Dev (Client + Server)",
+      "type": "shell",
+      "command": "npm run dev",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "LifeOS: Verify All",
+      "type": "shell",
+      "command": "npm run verify:all",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "LifeOS: Server Tests",
+      "type": "shell",
+      "command": "npm run test:server",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "LifeOS: Build Client",
+      "type": "shell",
+      "command": "npm run verify:client",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "LifeOS: Smoke Server",
+      "type": "shell",
+      "command": "npm run verify:smoke",
+      "problemMatcher": []
+    },
+    {
+      "label": "LifeOS: Git Status",
+      "type": "shell",
+      "command": "git status --short"
+    },
+    {
+      "label": "LifeOS: Push Main",
+      "type": "shell",
+      "command": "git push -u origin main"
+    },
+    {
+      "label": "LifeOS: Tag Release",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ./scripts/ops.ps1 tag"
+    },
+    {
+      "label": "LifeOS: Publish (Push + Tag)",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ./scripts/ops.ps1 publish"
+    }
+  ]
+}

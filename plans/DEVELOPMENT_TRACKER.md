@@ -22,6 +22,7 @@
 | Docs | Root README updated to current architecture | ✅ |
 | Governance | PR/Issue templates + CONTRIBUTING + branch-protection checklist | ✅ |
 | Governance | CODEOWNERS + deployment runbook | ✅ |
+| Tooling | Direct command access (chat/task/PowerShell) | ✅ |
 
 ## Active Workstream
 - Operationalize merge/release governance for `main` readiness.
@@ -46,6 +47,9 @@
 - Added `plans/GIT_PUBLISH_RUNBOOK.md` for remote setup and publish sequence.
 - Added `.github/CODEOWNERS` (placeholder owner mapping; replace `@REPO_OWNER`).
 - Added `plans/DEPLOYMENT_RUNBOOK.md` for preflight, smoke checks, and rollback steps.
+- Added `.vscode/tasks.json` with one-click dev/verify/publish tasks.
+- Added `scripts/ops.ps1` for direct operational commands in PowerShell.
+- Added `plans/COMMAND_ACCESS_RUNBOOK.md` and linked it from plans index.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean
