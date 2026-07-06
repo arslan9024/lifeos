@@ -1,0 +1,19 @@
+# Global fallback owner
+* @REPO_OWNER
+
+# Frontend ownership
+/client/ @REPO_OWNER
+/client/src/ @REPO_OWNER
+
+# Backend ownership
+/server/ @REPO_OWNER
+/server/src/ @REPO_OWNER
+
+# DevOps / workflows
+/.github/ @REPO_OWNER
+/scripts/ @REPO_OWNER
+
+# Planning and docs
+/plans/ @REPO_OWNER
+/README.md @REPO_OWNER
+/CONTRIBUTING.md @REPO_OWNER

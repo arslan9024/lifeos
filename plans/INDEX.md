@@ -25,6 +25,9 @@ This folder is the single source of truth for project planning and execution tra
 7. `GIT_PUBLISH_RUNBOOK.md`
    - Step-by-step process to connect remote, publish `main`, and trigger releases.
 
+8. `DEPLOYMENT_RUNBOOK.md`
+   - Release/deployment gate, smoke checks, and rollback operating procedure.
+
 ## Usage
 
 - Update `DEVELOPMENT_TRACKER.md` after each implementation session.

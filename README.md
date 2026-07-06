@@ -163,6 +163,8 @@ All execution planning artifacts now live in `/plans`:
 - `plans/RELEASE_READINESS_CHECKLIST.md`
 - `plans/COPILOT_AUTOPILOT_WORKFLOW.md`
 - `plans/BRANCH_PROTECTION_CHECKLIST.md`
+- `plans/GIT_PUBLISH_RUNBOOK.md`
+- `plans/DEPLOYMENT_RUNBOOK.md`
 
 Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 
@@ -173,6 +175,7 @@ Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 - `AGENTS.md` — role-based autopilot workflow for implementation/verifier/docs
 - `.github/pull_request_template.md` — standardized PR quality/verification checklist
 - `.github/ISSUE_TEMPLATE/*` — structured bug report and feature request intake
+- `.github/CODEOWNERS` — area-based default code review ownership
 - `CONTRIBUTING.md` — branching model and contribution workflow
 
 ## Current Status

@@ -21,6 +21,7 @@
 | Tooling | Tag-based release workflow automation | ✅ |
 | Docs | Root README updated to current architecture | ✅ |
 | Governance | PR/Issue templates + CONTRIBUTING + branch-protection checklist | ✅ |
+| Governance | CODEOWNERS + deployment runbook | ✅ |
 
 ## Active Workstream
 - Operationalize merge/release governance for `main` readiness.
@@ -43,6 +44,8 @@
 - Added `plans/BRANCH_PROTECTION_CHECKLIST.md` and linked it from plans index.
 - Renamed local default branch from `master` to `main`.
 - Added `plans/GIT_PUBLISH_RUNBOOK.md` for remote setup and publish sequence.
+- Added `.github/CODEOWNERS` (placeholder owner mapping; replace `@REPO_OWNER`).
+- Added `plans/DEPLOYMENT_RUNBOOK.md` for preflight, smoke checks, and rollback steps.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean
