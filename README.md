@@ -165,6 +165,7 @@ All execution planning artifacts now live in `/plans`:
 - `plans/BRANCH_PROTECTION_CHECKLIST.md`
 - `plans/GIT_PUBLISH_RUNBOOK.md`
 - `plans/DEPLOYMENT_RUNBOOK.md`
+- `plans/COMMAND_ACCESS_RUNBOOK.md`
 
 Use `DEVELOPMENT_TRACKER.md` as the live status file after every session.
 

@@ -1,19 +1,19 @@
 # Global fallback owner
-* @REPO_OWNER
+* @arslan9024
 
 # Frontend ownership
-/client/ @REPO_OWNER
-/client/src/ @REPO_OWNER
+/client/ @arslan9024
+/client/src/ @arslan9024
 
 # Backend ownership
-/server/ @REPO_OWNER
-/server/src/ @REPO_OWNER
+/server/ @arslan9024
+/server/src/ @arslan9024
 
 # DevOps / workflows
-/.github/ @REPO_OWNER
-/scripts/ @REPO_OWNER
+/.github/ @arslan9024
+/scripts/ @arslan9024
 
 # Planning and docs
-/plans/ @REPO_OWNER
-/README.md @REPO_OWNER
-/CONTRIBUTING.md @REPO_OWNER
+/plans/ @arslan9024
+/README.md @arslan9024
+/CONTRIBUTING.md @arslan9024

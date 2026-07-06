@@ -31,7 +31,7 @@
 1. Implement first real persisted feature module (Goals or Tasks).
 2. Add route-level API error presentation patterns on client.
 3. Expand server tests for rate-limiter and payload limit edges.
-4. Add CODEOWNERS and environment-specific deployment runbook.
+4. Enable GitHub branch protection rules in repository settings.
 
 ## Verification Record (latest)
 - `verify:client`: pass
@@ -50,6 +50,8 @@
 - Added `.vscode/tasks.json` with one-click dev/verify/publish tasks.
 - Added `scripts/ops.ps1` for direct operational commands in PowerShell.
 - Added `plans/COMMAND_ACCESS_RUNBOOK.md` and linked it from plans index.
+- Replaced CODEOWNERS placeholder owner with `@arslan9024`.
+- Restored comprehensive `.gitignore` coverage for Node/Vite/TS and env safety.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean
