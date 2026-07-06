@@ -20,6 +20,7 @@
 | Backend | Structured rate-limit errors with requestId | ✅ |
 | Testing | Server integration tests (supertest) | ✅ |
 | Testing | Added payload-limit + rate-limit integration edge tests | ✅ |
+| Testing | Added security middleware header/CORS integration tests | ✅ |
 | Tooling | verify scripts + smoke checks + CI workflow | ✅ |
 | Tooling | Tag-based release workflow automation | ✅ |
 | Docs | Root README updated to current architecture | ✅ |
@@ -33,7 +34,7 @@
 ## Next Priority Queue
 1. Implement first real persisted feature module (Goals or Tasks).
 2. Expand route-level API error pattern to additional data pages as they are added.
-3. Expand server tests for additional security middleware edges.
+3. Expand server tests for lifecycle and proxy-awareness edge behaviors.
 4. Enable GitHub branch protection rules in repository settings.
 
 ## Verification Record (latest)
@@ -59,6 +60,7 @@
 - Rate-limit responses now include stable `code` and `requestId` for traceability.
 - Added typed API request errors on client with server `code`/`requestId` support.
 - Added reusable `ApiErrorNotice` and applied explicit retry/error UX on `AppHomePage`.
+- Added server integration tests for Helmet headers, x-powered-by suppression, and allowed-origin CORS headers.
 
 ## Gate Before Merge to Main
 - [ ] `git status` clean

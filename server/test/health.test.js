@@ -117,3 +117,32 @@ test('Rate limiter returns 429 RATE_LIMIT_EXCEEDED with requestId', async () => 
   assert.equal(response.body.code, 'RATE_LIMIT_EXCEEDED');
   assert.ok(response.body.requestId);
 });
+
+test('Helmet security headers are present on API responses', async () => {
+  const response = await request(app).get('/api/health').expect(200);
+
+  assert.equal(response.headers['x-dns-prefetch-control'], 'off');
+  assert.equal(response.headers['x-frame-options'], 'SAMEORIGIN');
+  assert.equal(response.headers['x-content-type-options'], 'nosniff');
+});
+
+test('Express x-powered-by header is disabled', async () => {
+  const response = await request(app).get('/api/health').expect(200);
+
+  assert.equal(response.headers['x-powered-by'], undefined);
+});
+
+test('Allowed CORS origin gets explicit allow-origin and credentials headers', async () => {
+  const corsAllowedApp = createApp({
+    ...config,
+    clientOrigins: ['http://allowed.local'],
+  });
+
+  const response = await request(corsAllowedApp)
+    .get('/api/health')
+    .set('Origin', 'http://allowed.local')
+    .expect(200);
+
+  assert.equal(response.headers['access-control-allow-origin'], 'http://allowed.local');
+  assert.equal(response.headers['access-control-allow-credentials'], 'true');
+});
